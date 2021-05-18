@@ -24,6 +24,15 @@ But GoPro Max does not produce 'standard' 360° (aka equirectangular) so I decid
 * clone this repository
 * and build with make install (you might need to be root for writing to /usr/OFX)
 
+# Installation on Windows  
+* It needs more time and yet I did not port the GPU kernel to CUDA, but you are welcome !  
+
+# Binaries for MacOS (Intel and Apple Silicon) and Linux (x86_64)
+* I compiled and tested the plugin on MacOS Intel with Metal and OpenCL  
+* I compiled and tested the plugin on Linux Ubuntu 20.04 x86_64
+* just decompress the [binary](https://github.com/eltorio/MaxToEquirectPlugin/raw/master/MaxToEquirectPlugin.ofx.bundle.zip)
+* And place it under /Library/OFS/Plugins on Mac and /usr/OFX/Plugins/ on Linux  
+
 # Trying with DaVinci Resolve 17.2 studio
 ## First divide the .360 files in two movies
 Today DaVinci Resolve does not support dual video stream in the same MP4 container  
