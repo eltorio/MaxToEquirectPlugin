@@ -1,0 +1,12 @@
+*.exr
+*.hdr
+*.obj
+*.pdb
+*.tlog
+x64/
+.vs/
+*.log
+*.o
+.DS_Store
+*.pbxuser
+xcuserdata/
