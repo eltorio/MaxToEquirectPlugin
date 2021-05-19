@@ -10,3 +10,7 @@ x64/
 .DS_Store
 *.pbxuser
 xcuserdata/
+MaxToEquirectPlugin.VC.db
+MaxToEquirectPlugin.vcxproj.user
+MaxToEquirectCLKernel.h
+MaxToEquirectKernel.h

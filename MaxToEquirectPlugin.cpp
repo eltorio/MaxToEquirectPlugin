@@ -62,9 +62,24 @@ ImageScaler::ImageScaler(OFX::ImageEffect& p_Instance)
 {
 }
 
+#ifndef __APPLE__
+extern void RunCudaKernel(int p_in_Width, int p_in_Height, int p_out_Width, int p_out_Height, const float* gopromax_stack, float* dst);
+#endif
+
 void ImageScaler::processImagesCUDA()
 {
-//TODO no CUDA implementation (yet)
+#ifndef __APPLE__
+	const OfxRectI& in_bounds = _srcImg->getBounds();
+	const int in_width = in_bounds.x2 - in_bounds.x1;
+	const int in_height = in_bounds.y2 - in_bounds.y1;
+	const OfxRectI& out_bounds = _dstImg->getBounds();
+	const int out_width = out_bounds.x2 - out_bounds.x1;
+	const int out_height = out_bounds.y2 - out_bounds.y1;
+	float* input = static_cast<float*>(_srcImg->getPixelData());
+	float* output = static_cast<float*>(_dstImg->getPixelData());
+
+	RunCudaKernel(in_width, in_height, out_width, out_height, input, output);
+#endif
 }
 
 #ifdef __APPLE__
