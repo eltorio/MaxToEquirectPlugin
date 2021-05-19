@@ -25,7 +25,8 @@ But GoPro Max does not produce 'standard' 360° (aka equirectangular) so I decid
 * and build with make install (you might need to be root for writing to /usr/OFX)
 
 # Installation on Windows  
-* It needs more time and yet I did not port the GPU kernel to CUDA, but you are welcome !  
+* Build and tested with Visual Studio 2019 Community Edition (VC++)  
+* CUDA version working with CUDA Toolkit 11.2
 
 # Binaries for MacOS (Intel and Apple Silicon) and Linux (x86_64)
 * I compiled and tested the plugin on MacOS Intel with Metal and OpenCL  
