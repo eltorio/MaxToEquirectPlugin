@@ -229,36 +229,38 @@ __kernel void gopromax_equirectangular(int p_in_Width, int p_in_Height,int p_out
 {
     
     float4 val;
-    int2 loc = (int2)(get_global_id(0), get_global_id(1));
+    int2 loc = { get_global_id(0), get_global_id(1) };
     
 
-    int2 dst_size = (int2)(p_out_Width,p_out_Height);
-    int2 src_size = (int2)(p_in_Width,p_in_Height);
-    int2 eac_size = (int2)(src_size.x-2*(src_size.x*OVERLAP/BASESIZE),dst_size.y);
+    int2 dst_size = { p_out_Width,p_out_Height };
+    int2 src_size = { p_in_Width,p_in_Height };
+    int2 eac_size = { src_size.x - 2 * (src_size.x * OVERLAP / BASESIZE),dst_size.y };
     
-    
-    float3 xyz = equirect_to_xyz(loc,dst_size);
+    if (((loc.x < dst_size.x) && (loc.y < dst_size.y)))
+    {
+        float3 xyz = equirect_to_xyz(loc, dst_size);
 
-    float2 uv = xyz_to_eac(xyz,eac_size);
-    
-    int2 xy = convert_int2(floor(uv));
+        float2 uv = xyz_to_eac(xyz, eac_size);
 
-    xy = transpose_gopromax_overlap(xy,eac_size);
-    
-    //val = read_imagef(gopromax_stack,sampler,xy);
-    //const int index_in = ((xy.y * dst_size.x) + (dst_size.x-xy.x)) * 4;
-    const int index_in = (((dst_size.y-xy.y) * dst_size.x) + (xy.x)) * 4;
-    val.x = gopromax_stack[index_in + 0];
-    val.y = gopromax_stack[index_in + 1];
-    val.z = gopromax_stack[index_in + 2];
-    val.w = gopromax_stack[index_in + 3];
+        int2 xy = convert_int2(floor(uv));
 
-    //write_imagef(dst, loc, val);
-    //const int index = ((loc.y * dst_size.x) + (dst_size.x-loc.x)) * 4;
-    const int index = (((dst_size.y-loc.y) * dst_size.x) + (loc.x)) * 4;
-    dst[index + 0] = val.x;
-    dst[index + 1] = val.y;
-    dst[index + 2] = val.z;
-    dst[index + 3] = val.w;
+        xy = transpose_gopromax_overlap(xy, eac_size);
+        if ((xy.x < src_size.x) && (xy.y < src_size.y))
+        {
+            const int index_in = (((src_size.y - (xy.y + 1)) * src_size.x) + (xy.x)) * 4;
+            val.x = gopromax_stack[index_in + 0];
+            val.y = gopromax_stack[index_in + 1];
+            val.z = gopromax_stack[index_in + 2];
+            val.w = gopromax_stack[index_in + 3];
+
+            const int index = (((dst_size.y - (loc.y + 1)) * dst_size.x) + (loc.x)) * 4;
+            dst[index + 0] = val.x;
+            dst[index + 1] = val.y;
+            dst[index + 2] = val.z;
+            dst[index + 3] = val.w;
+        }
+    }
+
+
 
 }

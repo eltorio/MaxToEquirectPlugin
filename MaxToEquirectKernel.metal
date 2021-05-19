@@ -242,30 +242,30 @@ kernel void gopromax_equirectangular(constant int& p_in_Width [[buffer (11)]], c
     int2 src_size = {p_in_Width,p_in_Height};
     int2 eac_size = {src_size.x-2*(src_size.x*OVERLAP/BASESIZE),dst_size.y};
     
-    const int index = (((dst_size.y-loc.y) * dst_size.x) + (loc.x)) * 4;
+    const int index = (((dst_size.y-(loc.y+1)) * dst_size.x) + (loc.x)) * 4;
    
-   // if (loc.x < eac_size.x)
-{    float3 xyz = equirect_to_xyz(loc,dst_size);
+    float3 xyz = equirect_to_xyz(loc,dst_size);
 
     float2 uv = xyz_to_eac(xyz,eac_size);
     
     int2 xy = (int2)(round(uv));
 
     xy = transpose_gopromax_overlap(xy,eac_size);
+    if ((loc.x < dst_size.x) && (loc.y < dst_size.y))
+    {
+        const int index_in = (((src_size.y-(xy.y+1)) * src_size.x) + (xy.x)) * 4;
+        val.x = gopromax_stack[index_in + 0];
+        val.y = gopromax_stack[index_in + 1];
+        val.z = gopromax_stack[index_in + 2];
+        val.w = gopromax_stack[index_in + 3];
 
-    //val = read_imagef(gopromax_stack,sampler,xy);
-    const int index_in = (((dst_size.y-xy.y) * dst_size.x) + (xy.x)) * 4;
-    val.x = gopromax_stack[index_in + 0];
-    val.y = gopromax_stack[index_in + 1];
-    val.z = gopromax_stack[index_in + 2];
-    val.w = gopromax_stack[index_in + 3];
-
-    //write_imagef(dst, loc, val);
     
-    dst[index + 0] = val.x;
-    dst[index + 1] = val.y;
-    dst[index + 2] = val.z;
-    dst[index + 3] = val.w;}
+        dst[index + 0] = val.x;
+        dst[index + 1] = val.y;
+        dst[index + 2] = val.z;
+        dst[index + 3] = val.w;
+    }
+
     
 
 }
