@@ -94,4 +94,5 @@ ffmpeg -y -i "$FILE" \
 
 For testing there is two 15s video (still image) front.mp4 and rear.mp4 corresponding to… [front](https://github.com/eltorio/MaxToEquirectPlugin/blob/master/SampleuseofMaxToEquirectPluginAndReframe360XL.dra/MediaFiles/front.mp4/?raw=true) and [rear](https://github.com/eltorio/MaxToEquirectPlugin/blob/master/SampleuseofMaxToEquirectPluginAndReframe360XL.dra/MediaFiles/rear.mp4/?raw=true) lenses !
 
-But I also place a DaVinci Resolve project archive, just import the .dra in Resolve studio (free version does not seem to support OpenFX plugins)
+But I also place a DaVinci Resolve project archive, just import the .dra in Resolve studio (free version does not seem to support OpenFX plugins)  
+![screenshot](https://github.com/eltorio/MaxToEquirectPlugin/blob/master/SampleuseofMaxToEquirectPluginAndReframe360XL.dra/MediaFiles/screenshot.png/?raw=true)
