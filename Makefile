@@ -121,8 +121,6 @@ ofxsPropertyValidation-arm.o: $(BMDOFXDEVPATH)/Support/Library/ofxsPropertyValid
 
 %.metallib: %.metal
 	xcrun -sdk macosx metal -c $< -o $@
-	mkdir -p $(BUNDLE_DIR)
-	cp $@ $(BUNDLE_DIR)
 	
 MaxToEquirectCLKernel.h: MaxToEquirectCLKernel.cl
 	python ./HardcodeKernel.py MaxToEquirectCLKernel MaxToEquirectCLKernel.cl

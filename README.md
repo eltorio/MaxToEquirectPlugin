@@ -10,28 +10,32 @@ I worked on an OpenFX plugin for doing the reframing inside DaVinci Resolve whic
 You can find it on my repository here https://github.com/eltorio/reframe360XL  
 But GoPro Max does not produce 'standard' 360° (aka equirectangular) so I decided to write a plugin for converting GoPro pseudo equiangular cubemap videos to standard equirectangulars movies.  
 
-# Installation on MacOS (Intel and Apple Silicon)
+# Building on MacOS (Intel and Apple Silicon)
 * Build tested on MacOS 11.2.3 / XCode 12.4
 * Install latest XCode from Apple App store
 * Install Blackmagic DaVinci Resolve from Blackmagic website (studio version)
 * clone this repository
 * and build with make install
 
-# Installation on Linux
+# Building on Linux
 * Build tested on Ubuntu 20.04
 * Install make gcc opencl-headers
 * Install Blackmagic DaVinci Resolve from Blackmagic website (studio version)
 * clone this repository
 * and build with make install (you might need to be root for writing to /usr/OFX)
 
-# Installation on Windows  
-* It needs more time and yet I did not port the GPU kernel to CUDA, but you are welcome !  
+# Building on Windows  
+* Build and tested with Visual Studio 2019 Community Edition (VC++)
+* CUDA version working with CUDA Toolkit 11.2 
 
-# Binaries for MacOS (Intel and Apple Silicon) and Linux (x86_64)
+# Binaries installation for MacOS (Intel and Apple Silicon), Windows 10 and Linux (x86_64)
 * I compiled and tested the plugin on MacOS Intel with Metal and OpenCL  
-* I compiled and tested the plugin on Linux Ubuntu 20.04 x86_64
+* I compiled and tested the plugin on Linux Ubuntu 20.04 x86_64 with OpenCL only
+* I compiled and tested the plugin on Windows 10 with CUDA only and a GeForce RTX2060 GPU
 * just decompress the [binary](https://github.com/eltorio/MaxToEquirectPlugin/raw/master/MaxToEquirectPlugin.ofx.bundle.zip)
-* And place it under /Library/OFS/Plugins on Mac and /usr/OFX/Plugins/ on Linux  
+* And place it under /Library/OFS/Plugins on Mac
+* C:\Program Files\Common Files\OFX\Plugins\ 
+* /usr/OFX/Plugins/ on Linux  
 
 # Trying with DaVinci Resolve 17.2 studio
 ## First divide the .360 files in two movies
